@@ -1,2 +1,4 @@
 # Genshin-Impact-Sign-in
-Genshin Impact Sign-in is based on Python.
+### 原神自動簽到腳本
+---
+基於Python的原神自動簽到腳本
