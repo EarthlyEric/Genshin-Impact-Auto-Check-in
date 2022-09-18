@@ -1,6 +1,5 @@
 import asyncio
 import datetime
-from turtle import color
 import genshin
 from discord_webhook import DiscordWebhook, DiscordEmbed
 from configobj import ConfigObj
