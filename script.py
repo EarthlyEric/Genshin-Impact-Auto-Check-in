@@ -1,7 +1,7 @@
 import asyncio
 import datetime
 import genshin
-from discord_webhook import DiscordWebhook, DiscordEmbed
+from discord_webhook import AsyncDiscordWebhook, DiscordEmbed
 from configobj import ConfigObj
 
 class config():
@@ -32,7 +32,7 @@ async def main():
     else:
         print('今日已領取 %s 個 %s'%(str(reward.amount),reward.name))
     if config.discord_enable:
-        webhook=DiscordWebhook(url=config.discord_webhook_url)
+        webhook=AsyncDiscordWebhook(url=config.discord_webhook_url)
         embed=DiscordEmbed(title=':white_check_mark: |原神|每日簽到')
         embed.set_color(color='03b2f8')
         embed.set_thumbnail(url=reward.icon)
@@ -40,9 +40,9 @@ async def main():
         embed.add_embed_field(name='今日領取物品',value='`%s 個 %s`'%(str(reward.amount),reward.name))
         embed.set_footer('Genshin-Impact-Sign-in')
 
-        webhook.add_embed(embed=embed)
+        webhook.add_embed(embed)
 
-        respone=webhook.execute()
+        await webhook.execute()
 
 asyncio.run(main())
     
