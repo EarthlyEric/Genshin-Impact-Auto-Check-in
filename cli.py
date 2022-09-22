@@ -3,6 +3,8 @@ import sys
 import time
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
+from InquirerPy.separator import Separator
+from configobj import ConfigObj
 
 def slowprint(string:str,second:float):
 	for c in string + '\n':
@@ -33,11 +35,15 @@ print('=========================================================================
 slowprint('歡迎使用Genshin Impact Auto Check-in CLI工具 !!',0.05)
 action=inquirer.select(
     message='請你選擇要執行的功能',
-    choices=[   Choice('0','生成設定檔'), 
-                Choice('1','離開'), 
-                ]
-).execute()
-if action==0:
-    pass
-elif action==1:
-    exit()
+    choices=[   Separator(),
+                Choice('0','生成設定檔'),
+                Choice('1','編輯設定檔'),
+                Choice('2','設定檔除錯'),
+                Separator(),
+                Choice('3','離開'), 
+                ],
+                
+    default=None,
+    ).execute()
+
+    
