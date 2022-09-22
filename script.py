@@ -44,11 +44,11 @@ def webhook(AlreadyClaimed:bool,reward=None):
         emoji=':x:'
     else:
         emoji=':white_check_mark:'
-    embed=DiscordEmbed(title=f'{emoji} |原神|每日簽到')
+    embed=DiscordEmbed(title=f'{emoji} 原神-每日簽到')
     embed.set_color(color='03b2f8')
     embed.set_timestamp()
     if AlreadyClaimed:
-        embed.add_embed_field(name='今日每日獎勵已被搶先領取!',value='`你可能已經使用網頁簽到過了。`')
+        embed.add_embed_field(name='今日每日獎勵已被領取!',value='`你可能已經使用網頁簽到過了。`')
     else:
         embed.set_thumbnail(url=reward.icon)
         embed.add_embed_field(name='今日領取物品',value='`%s 個 %s`'%(str(reward.amount),reward.name))
@@ -68,7 +68,7 @@ async def main():
         reward=await client.claim_daily_reward(lang='zh-tw')
     except genshin.AlreadyClaimed:
         print('執行結果:')
-        print('%s今日每日獎勵已被搶先領取! %s'%(fg(3),attr(0)))
+        print('%s今日每日獎勵已被領取! %s'%(fg(3),attr(0)))
     else:
         webhook(reward=reward,AlreadyClaimed=False)
         print('今日已領取 %s 個 %s'%(str(reward.amount),reward.name))
