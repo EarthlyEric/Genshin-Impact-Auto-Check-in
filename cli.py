@@ -1,5 +1,3 @@
-from genericpath import isfile
-import imp
 import os
 import sys
 import time
@@ -16,25 +14,6 @@ def slowprint(string:str,second:float):
 		sys.stdout.write(c)
 		sys.stdout.flush()
 		time.sleep(second)
-
-def main():
-    os.system('cls' if os.name=='nt' else 'clear')
-    print(LOGO)
-    print('==================================================================================================================')
-    slowprint('歡迎使用Genshin Impact Auto Check-in CLI工具 !!',0.05)
-    print()
-    global action
-    action=inquirer.select(
-        message='請你選擇要執行的功能',
-        choices=[   Separator(),
-                    Choice('0','生成設定檔'),
-                    Choice('1','編輯設定檔'),
-                    Choice('2','設定檔除錯'),
-                    Separator(),
-                    Choice('3','離開'), 
-                    ],
-        default=None,
-        ).execute()
 
 if os.path.isfile('config.ini'):
     config=True
@@ -58,11 +37,31 @@ LOGO="""
     ██║░░██║╚██████╔╝░░░██║░░░╚█████╔╝  ╚█████╔╝██║░░██║███████╗╚█████╔╝██║░╚██╗░░░░░░██║██║░╚███║
     ╚═╝░░╚═╝░╚═════╝░░░░╚═╝░░░░╚════╝░  ░╚════╝░╚═╝░░╚═╝╚══════╝░╚════╝░╚═╝░░╚═╝░░░░░░╚═╝╚═╝░░╚══╝
     """
-main()
+os.system('cls' if os.name=='nt' else 'clear')
+print(LOGO)
+print('==================================================================================================================')
+slowprint('歡迎使用Genshin Impact Auto Check-in CLI工具 !!',0.05)
+print()
 
-if action==0:
-    print('已檢測到')
-    main()
+while True:
+    action=inquirer.select(
+        message='請你選擇要執行的功能',
+        choices=[   Separator(),
+                    Choice(1,'生成設定檔'),
+                    Choice(2,'編輯設定檔'),
+                    Choice(3,'設定檔除錯'),
+                    Separator(),
+                    Choice(0,'離開'), 
+                    ],
+        default=None,
+        ).execute()
+
+    if action==0:
+        print()
+        print('%s 💻 感謝使用，再見! %s'% (fg(3),attr(0)))
+        exit()
+
+    
     
         
         
