@@ -1,3 +1,5 @@
+from genericpath import isfile
+import imp
 import os
 import sys
 import time
@@ -5,12 +7,39 @@ from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 from InquirerPy.separator import Separator
 from configobj import ConfigObj
+from colored import fg,attr
+
+action=None
 
 def slowprint(string:str,second:float):
 	for c in string + '\n':
 		sys.stdout.write(c)
 		sys.stdout.flush()
 		time.sleep(second)
+
+def main():
+    os.system('cls' if os.name=='nt' else 'clear')
+    print(LOGO)
+    print('==================================================================================================================')
+    slowprint('歡迎使用Genshin Impact Auto Check-in CLI工具 !!',0.05)
+    print()
+    global action
+    action=inquirer.select(
+        message='請你選擇要執行的功能',
+        choices=[   Separator(),
+                    Choice('0','生成設定檔'),
+                    Choice('1','編輯設定檔'),
+                    Choice('2','設定檔除錯'),
+                    Separator(),
+                    Choice('3','離開'), 
+                    ],
+        default=None,
+        ).execute()
+
+if os.path.isfile('config.ini'):
+    config=True
+else:
+    config=False
 
 LOGO="""
     
@@ -29,21 +58,17 @@ LOGO="""
     ██║░░██║╚██████╔╝░░░██║░░░╚█████╔╝  ╚█████╔╝██║░░██║███████╗╚█████╔╝██║░╚██╗░░░░░░██║██║░╚███║
     ╚═╝░░╚═╝░╚═════╝░░░░╚═╝░░░░╚════╝░  ░╚════╝░╚═╝░░╚═╝╚══════╝░╚════╝░╚═╝░░╚═╝░░░░░░╚═╝╚═╝░░╚══╝
     """
-os.system('cls' if os.name=='nt' else 'clear')
-print(LOGO)
-print('==================================================================================================================')
-slowprint('歡迎使用Genshin Impact Auto Check-in CLI工具 !!',0.05)
-action=inquirer.select(
-    message='請你選擇要執行的功能',
-    choices=[   Separator(),
-                Choice('0','生成設定檔'),
-                Choice('1','編輯設定檔'),
-                Choice('2','設定檔除錯'),
-                Separator(),
-                Choice('3','離開'), 
-                ],
-                
-    default=None,
-    ).execute()
+main()
+
+if action==0:
+    print('已檢測到')
+    main()
+    
+        
+        
+    
+
+        
+
 
     
