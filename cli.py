@@ -1,11 +1,13 @@
 import os
 import sys
 import time
+import animation
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 from InquirerPy.separator import Separator
 from configobj import ConfigObj
 from colored import fg,attr
+
 
 action=None
 
@@ -58,8 +60,22 @@ while True:
 
     if action==0:
         print()
-        print('%s 💻 感謝使用，再見! %s'% (fg(3),attr(0)))
+        print('%s%s 感謝使用Genshin Impact Auto Check-in CLI工具，再見! %s'% (fg(3),attr(1),attr(0)))
         exit()
+    elif action==1:
+        print()
+        print('%s 檢測是否已生成過設定檔中... %s'% (fg(3),attr(0)))
+        time.sleep(0.3)
+        if config:
+            print('%s 已找到設定檔! %s'% (fg(10),attr(0)))
+            time.sleep(0.1)
+            print('%s 建議使用"編輯設定檔"的功能 %s'% (fg(3),attr(0)))
+            print()
+        else:
+            print('%s 未找到設定檔! %s'% (fg(1),attr(0)))
+
+
+
 
     
     
