@@ -5,6 +5,7 @@ import animation
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 from InquirerPy.separator import Separator
+from prompt_toolkit.validation import ValidationError, Validator
 from configobj import ConfigObj
 from colored import fg,attr
 
@@ -17,10 +18,21 @@ def slowprint(string:str,second:float):
 		sys.stdout.flush()
 		time.sleep(second)
 
-if os.path.isfile('config.ini'):
-    config=True
-else:
-    config=False
+class ltuidInputValidator(Validator):
+    def validate(self, document):
+        try:
+            int(document.text)
+        except ValueError:
+            raise ValidationError(
+                message='ltuid格式錯誤!',
+                cursor_position=document.cursor_position,
+            )
+        if not len(document.text) > 0:
+            raise ValidationError(
+                message='輸入不可為空白!',
+                cursor_position=document.cursor_position,
+            )
+
 
 LOGO="""
     
@@ -64,26 +76,7 @@ while True:
         exit()
     elif action==1:
         print()
-        print('%s 檢測是否已生成過設定檔中... %s'% (fg(3),attr(0)))
-        time.sleep(0.3)
-        if config:
-            print('%s 已找到設定檔! %s'% (fg(10),attr(0)))
-            time.sleep(0.1)
-            print('%s 建議使用"編輯設定檔"的功能 %s'% (fg(3),attr(0)))
-            print()
-        else:
-            print('%s 未找到設定檔! %s'% (fg(1),attr(0)))
-
-
-
-
-    
-    
+        print('%s你選擇了 %s> %s%s生成設定檔 %s'%(fg(3),attr(0),fg(2),attr(1),attr(0)))
+        ltuid=inquirer.text(message='請輸入ltuid \n',validate=ltuidInputValidator).execute()
         
-        
-    
-
-        
-
-
-    
+        ltoken=inquirer.text(message='請輸入ltoken \n').execute()
