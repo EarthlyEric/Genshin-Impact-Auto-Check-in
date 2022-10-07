@@ -5,7 +5,7 @@ import animation
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 from InquirerPy.separator import Separator
-from prompt_toolkit.validation import ValidationError, Validator
+from InquirerPy.validator import EmptyInputValidator
 from configobj import ConfigObj
 from colored import fg,attr
 
@@ -18,20 +18,10 @@ def slowprint(string:str,second:float):
 		sys.stdout.flush()
 		time.sleep(second)
 
-class ltuidInputValidator(Validator):
-    def validate(self, document):
-        try:
-            int(document.text)
-        except ValueError:
-            raise ValidationError(
-                message='ltuid格式錯誤!',
-                cursor_position=document.cursor_position,
-            )
-        if not len(document.text) > 0:
-            raise ValidationError(
-                message='輸入不可為空白!',
-                cursor_position=document.cursor_position,
-            )
+def generate_report(ltuid,ltoken,enable_discord_webhook,discord_webhook_url):
+    print()
+    print('=========================')
+    print('**  ltuid  **  %s      **')
 
 
 LOGO="""
@@ -77,6 +67,34 @@ while True:
     elif action==1:
         print()
         print('%s你選擇了 %s> %s%s生成設定檔 %s'%(fg(3),attr(0),fg(2),attr(1),attr(0)))
-        ltuid=inquirer.text(message='請輸入ltuid \n').execute()
+        ltuid=inquirer.text(
+            message='請輸入ltuid \n',
+            validate=EmptyInputValidator('請輸入內容!')
+        ).execute()
         
-        ltoken=inquirer.text(message='請輸入ltoken \n').execute()
+        ltoken=inquirer.text(
+            message='請輸入ltoken \n',
+            validate=EmptyInputValidator('請輸入內容!')
+        ).execute()
+
+
+        enable_discord_webhook=inquirer.select(
+            message='是否使用Discord Webhook',
+            choices=[   Separator(),
+                        Choice(True,'是'),
+                        Choice(False,'否'),
+                    ],
+            default=None,
+            ).execute()
+
+        if enable_discord_webhook:
+            discord_hook_url=inquirer.text(
+                message='請輸入discord_hook_url \n',
+                validate=EmptyInputValidator('請輸入內容!')
+                ).execute()
+        else:
+            discord_hook_url=None
+        
+            
+
+
