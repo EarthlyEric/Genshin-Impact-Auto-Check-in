@@ -77,6 +77,6 @@ while True:
     elif action==1:
         print()
         print('%s你選擇了 %s> %s%s生成設定檔 %s'%(fg(3),attr(0),fg(2),attr(1),attr(0)))
-        ltuid=inquirer.text(message='請輸入ltuid \n',validate=ltuidInputValidator).execute()
+        ltuid=inquirer.text(message='請輸入ltuid \n').execute()
         
         ltoken=inquirer.text(message='請輸入ltoken \n').execute()
