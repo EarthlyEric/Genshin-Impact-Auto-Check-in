@@ -23,6 +23,11 @@ def generate_report(ltuid,ltoken,enable_discord_webhook,discord_webhook_url):
     print('=========================')
     print('**  ltuid  **  %s      **')
 
+def save_config():
+    pass
+
+def debug_config():
+    pass
 
 LOGO="""
     
