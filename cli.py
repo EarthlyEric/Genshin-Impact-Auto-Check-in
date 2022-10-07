@@ -9,8 +9,7 @@ from InquirerPy.validator import EmptyInputValidator
 from configobj import ConfigObj
 from colored import fg,attr
 
-
-action=None
+style=None
 
 def slowprint(string:str,second:float):
 	for c in string + '\n':
@@ -18,7 +17,7 @@ def slowprint(string:str,second:float):
 		sys.stdout.flush()
 		time.sleep(second)
 
-def generate_report(ltuid,ltoken,enable_discord_webhook,discord_webhook_url):
+def generate_report(configDict:dict):
     print()
     print('=========================')
     print('**  ltuid  **  %s      **')
@@ -99,7 +98,16 @@ while True:
                 ).execute()
         else:
             discord_hook_url=None
-        
-            
 
+        configDict={
+           'ltuid':ltuid,
+           'ltoken':ltoken,
+           'enable_discord_webhook':enable_discord_webhook,
+           'discord_hook_url':discord_hook_url
+        }
+
+        print(configDict)
+        
+        generate_report(configDict)
+        save_config()
 
