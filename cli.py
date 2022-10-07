@@ -9,6 +9,7 @@ from InquirerPy.validator import EmptyInputValidator
 from configobj import ConfigObj
 from colored import fg,attr
 
+# https://inquirerpy.readthedocs.io/en/latest/pages/style.html
 style=None
 
 def slowprint(string:str,second:float):
