@@ -1,6 +1,6 @@
 genshin==1.2.4
 configobj==5.0.6
-discord-webhook===0.17.0
+discord-webhook==0.17.0
 colored==1.4.3
 inquirerpy==0.3.4
 animation==0.0.7
