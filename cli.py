@@ -20,10 +20,26 @@ def slowprint(string:str,second:float):
 
 def generate_report(configDict:dict):
     print()
-    print('=========================')
-    print('**  ltuid  **  %s      **')
+    print('%s【%sAuthentication/身分驗證%s】'%(attr(1),fg(3),attr(0)))
+    print('=========================================================')
+    print('ltuid : %s'%(configDict['ltuid']))
+    print('=========================================================')
+    print('ltoken : %s'%(configDict['ltoken']))
+    print('=========================================================')
+    print()
+    print('%s【%sDiscord Webhook %s】'%(attr(1),fg(3),attr(0)))
+    print('=========================================================')
+    if configDict['enable_discord_webhook']:
+        print('enable : %s%s%s'%(fg(2),configDict['enable_discord_webhook'],attr(0)))
+        print('=========================================================')
+        print('webhook_url : %s'%(configDict['discord_webhook_url']))
+    else:
+        print('enable : %s%s%s'%(fg(1),configDict['enable_discord_webhook'],attr(0)))
+    print('=========================================================')
+    print()
 
-def save_config():
+
+def save_config(configDict:dict,):
     pass
 
 def debug_config():
@@ -93,22 +109,21 @@ while True:
             ).execute()
 
         if enable_discord_webhook:
-            discord_hook_url=inquirer.text(
+            discord_webhook_url=inquirer.text(
                 message='請輸入discord_hook_url \n',
                 validate=EmptyInputValidator('請輸入內容!')
                 ).execute()
         else:
-            discord_hook_url=None
+            discord_webhook_url=None
 
         configDict={
            'ltuid':ltuid,
            'ltoken':ltoken,
            'enable_discord_webhook':enable_discord_webhook,
-           'discord_hook_url':discord_hook_url
+           'discord_webhook_url':discord_webhook_url
         }
 
-        print(configDict)
         
+
         generate_report(configDict)
-        save_config()
 
